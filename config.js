@@ -1,6 +1,6 @@
 module.exports = {
   // your community or team name to display on join page.
-  community: process.env.COMMUNITY_NAME || 'hangops-slack',
+  community: process.env.COMMUNITY_NAME || 'hangops.slack.com',
   // your slack team url (ex: socketio.slack.com)
   slackUrl: process.env.SLACK_URL || 'hangops.slack.com',
   // access token of slack
