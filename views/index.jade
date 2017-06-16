@@ -15,22 +15,29 @@ html
           h2 #{__('HEADER', community)}
         .content
           .information
-            h4 We have recently deactivated some inactive accounts.
-            h4 If yours was deactivated and you would like it reactivated, find us on <a href="https://twitter.com/hangops">Twitter</a>.
+            p We have recently deactivated some inactive accounts. If yours was deactivated and you would like it reactivated, find us on <a href="https://twitter.com/hangops">Twitter</a>.
             form(method="POST", action="/invite")#join-form.form
               input(type="email", name="email", placeholder="#{__('ENTER_EMAIL')}")#slack-email.field
               if tokenRequired
                 input(type="text", name="token", placeholder="#{__('ENTER_TOKEN')}")#slack-token.field
+              input(type="checkbox", name="code-of-conduct")#slack-code-of-conduct
+              label(for="slack-code-of-conduct") I agree to the <a href="https://github.com/hangops/code-of-conduct/blob/master/README.md" target="_blank">Hangops Code of Conduct</a>
               input(type="submit", value="Join").submit
     script.
       var tokenRequired = #{tokenRequired};
       var form = document.getElementById('join-form');
       var email = document.getElementById('slack-email');
+      var coc   = document.getElementById('slack-code-of-conduct');
       var token = document.getElementById('slack-token');
       form.addEventListener('submit', function(evt) {
-        if (!email.value) {
+        if (!email.value || !coc.checked) {
           evt.preventDefault();
+
+          if (email.value && !coc.checked) {
+            alert("Please read and accept the Code of Conduct to join");
+          }
         }
+
         if (tokenRequired && !token.value) {
           evt.preventDefault();
         }
